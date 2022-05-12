@@ -1,5 +1,3 @@
-//const axios = require('axios');
-//const { fetchBreedImages, fetchMostSearched, updateSearchCount } = require('./test_utils'); 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server');

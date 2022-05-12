@@ -70,7 +70,7 @@ app.put('/updateSearchCount/:breedId', (req, res) => {
         { '_id' : parseInt(breedId) },
         { $inc : { 'searches' : 1 } }
     ).then(result => {
-        res.json({status:'Success', message: `Search count for breed with ID ${breedId} updated.`})
+        res.status(200).json({status:'Success', message: `Search count for breed with ID ${breedId} updated.`})
     }).catch(err => 
         res.status(404).json({status: 'Error', message: 'Resource not found', data: []}
     ));

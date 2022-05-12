@@ -2,9 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const cors = require('cors');
 const axios = require("axios");
-const { MongoClient, ServerApiVersion, ReturnDocument } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const apiBaseUrl = "https://api.thedogapi.com/v1";
-const key = process.env.APIKEY;
+const key = process.env.API_KEY;
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -23,7 +23,7 @@ MongoClient.connect(process.env.MONGODB_URI,
 });
 
 app.get('/', (req, res) => {
-    res.status(400).send("Hello world!")
+    res.status(200).send("Hello world!")
 })
 
 app.get('/breeds/all', (req, res) => {
@@ -47,11 +47,11 @@ app.get('/images/:breedId', (req, res) => {
             'x-api-key': key
         }
     })
-    .then(response => {res.json(response.data)})
-    .catch(err => console.log(`Error retrieving image for breed with id ${breedId}`));
+    .then(response => res.json(response.data))
+    .catch(err => res.json({status:'error', message:`Error retrieving images for breed with id ${breedId}`}));
 })
 
-app.put('/updateSearchCount/:breedId', async (req, res) => {
+app.put('/updateSearchCount/:breedId', (req, res) => {
     db.updateOne(
         { '_id' : parseInt(req.params.breedId) },
         { $inc : { 'searches' : 1 } }

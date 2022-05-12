@@ -12,15 +12,14 @@ is simply whenever someone selects a breed and its pictures are loaded.
 
 ### Local Usage
 
-To run the app locally one must download this repository. Then to run the app, open a terminal in the root directory and type 'npm run dev' to
-run the server and client concurrently; the app will be open on 
-http://localhost:3000.
+To run the app locally one must download this repository, open a terminal in the root directory, and enter the command 'npm run dev' to run the server and client concurrently; the app will then be open on http://localhost:3000.
 
 ## Testing
 
 There are two ways to run the tests: with Replit or locally. 
 
-To run on Replit, visit https://replit.com/@jyguzman/ShopifyChallengeTests and in the shell enter the command "npm test". It is NOT necessary to click the 'Run' button at the top.
+To run on Replit, visit https://replit.com/@jyguzman/ShopifyChallengeTests and in the shell enter the command "npm test". It is NOT necessary to click the 'Run' button at the top. This must be done on a computer (not on mobile),
+since it appears that the shell does not appear on mobile.
 
 To run the tests locally, download the repository, and in the root 
 directory open a terminal and enter the command 'npm test'.

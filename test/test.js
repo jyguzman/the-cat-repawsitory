@@ -82,7 +82,6 @@ describe('/GET /topDogs', () => {
 describe('/PUT /updateSearchCount/:breedId', (done) => {
     it('it should successfully increment the search count by 1 of a given breed by breed ID', (done) => {
         const breedId = 1;
-        const testBreed = {_id : 1000, name: "Fake Terrier", image: "fake.png", searches: 0}
         chai.request(server)
             .put(`/updateSearchCount/${breedId}`)
             .end((err, res) => {

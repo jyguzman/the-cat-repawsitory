@@ -8,7 +8,7 @@ const fetchBreedImages = async breedId => {
     } else {
         images = await axios.get(`/images/${breedId}`);
     }
-    return images.data;
+    return images.data.data;
 }
 
 export default fetchBreedImages;

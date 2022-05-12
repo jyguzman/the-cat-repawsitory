@@ -8,8 +8,8 @@ const SearchBar = (props) => {
       <Autocomplete
         id="breed-search-bar"
         options={breeds}
-        getOptionLabel={(option) => option.name}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
+        getOptionLabel={(breed) => breed.name}
+        isOptionEqualToValue={(breed, value) => breed.id === value.id}
         onChange={props.handleBreedSearch}
         renderInput={(params) => <TextField {...params} 
             label="Search breeds" variant="outlined" />}

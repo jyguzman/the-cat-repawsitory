@@ -6,7 +6,7 @@ import TopDogs from './TopDogs';
 import fetchBreedImages from '../utils/fetchBreedImages';
 import fetchMostSearched from '../utils/fetchMostSearched';
 import updateSearchCount from '../utils/updateSearchCount';
-import Appbar from './Appbar';
+import TitleBar from './TitleBar';
 
 const MainPage = () => {
     const [images, setImages] = useState([]);
@@ -14,25 +14,25 @@ const MainPage = () => {
     const [showTopTen, setShowTopTen] = useState(false);
     const [showImages, setShowImages] = useState(false);
     
-    const handleBreedSearch = (event, value) => {
+    const handleBreedSearch = async (event, value) => {
         if (value) {
             setImages(null);
             setShowTopTen(false);
             setShowImages(true);
             updateSearchCount(value.id);
-            setImages(fetchBreedImages(value.id));
+            setImages(await fetchBreedImages(value.id));
         }
     } 
 
-    const handleTopTenSearch = () => {
+    const handleTopTenSearch = async () => {
         setTopTen(null);
         setShowImages(false);
         setShowTopTen(true);
-        setTopTen(fetchMostSearched());
+        setTopTen(await fetchMostSearched());
     }
     return (
         <>
-        <Appbar/>
+        <TitleBar/>
         <Grid direction='column' justify='center' alignItems='center' container spacing={2}>
             <Grid justify='center' alignItems='center' item sx={{ 
                 paddingTop: '25%',
@@ -41,7 +41,7 @@ const MainPage = () => {
                 <Search handleTopTenSearch={handleTopTenSearch} handleBreedSearch={handleBreedSearch}/>
             </Grid>
             <Grid item>
-                {(showImages) ? (images ? <Gallery pics={images}/> : <CircularProgress/>) : null}
+                {(showImages) ? (images ? <Gallery images={images}/> : <CircularProgress/>) : null}
             </Grid>
             <Grid item>
                 {(showTopTen) ? (topTen ? <TopDogs topTen={topTen}/> : <CircularProgress/>) : null}

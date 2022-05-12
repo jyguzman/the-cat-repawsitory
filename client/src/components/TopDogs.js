@@ -1,10 +1,9 @@
 import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
 
 const TopDogs = (props) => {
-    const topTen = props.topTen;
     return (
         <Grid container spacing={2}>
-            {topTen.map(breed => {
+            {props.topTen.map(breed => {
                 const image = breed.image;
                 const name = breed.name;
                 const searches = breed.searches;

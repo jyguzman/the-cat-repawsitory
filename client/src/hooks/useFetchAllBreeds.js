@@ -8,7 +8,7 @@ const useFetchAllBreeds = () => {
     useEffect(() => {
         const fetchBreeds = async () => {
             axios.get(`${(env === 'production' ? apiUrl : '')}/breeds/all`)
-              .then(breeds => setBreeds(breeds.data))
+              .then(breeds => setBreeds(breeds.data.data))
               .catch(err => console.log(err));
           }
         fetchBreeds();

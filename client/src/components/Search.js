@@ -12,7 +12,6 @@ const Search = (props) => {
                 <SearchButtons handleTopTenSearch={props.handleTopTenSearch}/>
             </Grid>
         </Grid>
-        
     );
 }
 

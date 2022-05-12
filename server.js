@@ -1,17 +1,30 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require('body-parser');
+const cors = require('cors');
 const axios = require("axios");
+const { MongoClient, ServerApiVersion, ReturnDocument } = require('mongodb');
 const apiBaseUrl = "https://api.thedogapi.com/v1";
 const key = process.env.APIKEY;
-const path = require('path');
 const app = express();
-app.use(
-	express.urlencoded({
-		extended: true
-	})
-);
-//app.use(express.bodyParser());
+
+app.use(express.urlencoded({extended: true}));
+app.use(cors());
+
+let db = null;
+
+MongoClient.connect(process.env.MONGODB_URI, 
+    { useNewUrlParser: true, useUnifiedTopology: true }, 
+    (err, client) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    db = client.db('dogs').collection('breeds');
+});
+
+app.get('/', (req, res) => {
+    res.status(400).send("Hello world!")
+})
 
 app.get('/breeds/all', (req, res) => {
     const url = `${apiBaseUrl}/breeds`;
@@ -20,8 +33,10 @@ app.get('/breeds/all', (req, res) => {
             'x-api-key': key
         }
     })
-    .then(response => res.json(response.data))
-    .catch(err => console.log(err));
+    .then(response => res.status(200).json(response.data))
+    .catch(err => {
+        res.status(404).send('Error retrieving all breeds.');
+    });
 })
 
 app.get('/images/:breedId', (req, res) => {
@@ -32,12 +47,21 @@ app.get('/images/:breedId', (req, res) => {
             'x-api-key': key
         }
     })
-    .then(response => res.json(response.data))
-    .catch(err => console.log(err));
+    .then(response => {res.json(response.data)})
+    .catch(err => console.log(`Error retrieving image for breed with id ${breedId}`));
 })
 
-app.get('/top', (req, res) => {
-    
+app.put('/updateSearchCount/:breedId', async (req, res) => {
+    db.updateOne(
+        { '_id' : parseInt(req.params.breedId) },
+        { $inc : { 'searches' : 1 } }
+    ).then(result => {
+        res.json({message:'success'})
+    });
 })
 
-app.listen(3001, '127.0.0.1');
+app.get('/topDogs', (req, res) => {
+    db.find().sort( { searches : -1} ).limit(10).toArray().then(topTen => res.json(topTen));
+})
+
+app.listen(process.env.PORT || 8080);

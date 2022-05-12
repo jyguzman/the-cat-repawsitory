@@ -1,5 +1,9 @@
 # The Dog Repawsitory
 
+The Dog Repawsitory is a full-stack application made with React, Express, Node, and MongoDB that allows you to search for images of 172 different
+dog breeds. Check out below for details on how to use the app, and how to 
+run the tests.
+
 ## Usage
 
 The easiest way to use the Dog Repawsitory is just to visit its link at https://dogrepawsitory.uc.r.appspot.com! It has been deployed using Google Cloud Platform (GCP).

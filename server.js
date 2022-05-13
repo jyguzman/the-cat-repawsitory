@@ -85,6 +85,10 @@ app.get('/topDogs', (req, res) => {
     .catch(err => res.status(404).json({status: 'Error', message: 'Error retrieving top dogs', data: []}))
 })
 
+app.get('/_ah/warmup', async (req, res) => {
+    res.json({status: 'Success'})
+})
+
 app.all('/*', (req, res) => {
     res.status(404).json({status: 'Error', message: 'Resource not found'});
 })

@@ -12,6 +12,8 @@ as you type in the text box. There are 172 available breeds.
 The 'Top Dogs' button lists the current 10 most searched breeds. A search
 is simply whenever someone selects a breed and its pictures are loaded.
 
+If the app seems to be taking a whiel to load, simply refresh or click 'Top Dogs' twice; the initial long load is a result of Google Cloud putting the app in an idle state after a period of no traffic.
+
 ### Local Usage
 
 To run the app locally one must download this repository, open a terminal in the root directory, and enter the command 'npm run dev' to run the server and client concurrently; the app will then be open on http://localhost:3000.

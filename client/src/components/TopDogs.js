@@ -15,8 +15,8 @@ const TopDogs = (props) => {
                                 image={image}
                             />
                             <CardContent sx={{ textAlign: 'center' }}>
-                                <Typography gutterBottom 
-                                    variant="subtitle1" component="h6">
+                                <Typography gutterBottom variant="subtitle1" 
+                                    component="h6">
                                     {name}: {(searches === 1 ? '1 search' : `${searches} searches`)}
                                 </Typography>
                             </CardContent>

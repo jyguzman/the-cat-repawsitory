@@ -2,10 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require('cors');
 const axios = require("axios");
+const redis = require('redis');
 const MongoClient = require('mongodb').MongoClient;
-const dogApiBaseUrl = "https://api.thedogapi.com/v1";
+
+const catApiBaseUrl = "https://api.thecatapi.com/v1"
 const URI = process.env.MONGODB_URI;
-const key = process.env.API_KEY;
+const key = process.env.CAT_API_KEY;
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -23,6 +25,9 @@ MongoClient.connect(URI,
     db = client.db('dogs').collection('breeds');
 });
 
+const redisClient = redis.createClient();
+redisClient.connect();
+
 app.get('/', (req, res) => {
     if (req.method !== 'GET') {
         res.status(405).json({status: 'Error', message: '405 Wrong Method'})
@@ -30,15 +35,47 @@ app.get('/', (req, res) => {
     res.status(200).json({status: 'Success', message: 'Hello, world!'});
 })
 
-app.get('/breeds/all', (req, res) => {
+app.get('/breeds/cats', async (req, res) => {
     if (req.method !== 'GET') {
         res.status(405).json({status: 'Error', message: '405 Wrong Method'})
     }
-    axios.get(`${dogApiBaseUrl}/breeds`, { headers: { 'x-api-key': key } } )
-    .then(response => res.status(200).json({status: 'Success', data: response.data}))
+    const cats = await redisClient.get('cats');
+    if (cats) {
+        res.status(200).json({status: 'Success', data: JSON.parse(cats)});
+        return;
+    }
+    axios.get(`${catApiBaseUrl}/breeds`, { headers: { 'x-api-key': key } } )
+    .then(async response => {
+        await redisClient.set('cats', JSON.stringify(response.data));
+        res.status(200).json({status: 'Success', data: response.data})
+    })
     .catch(err => {
         res.status(404).send({status:'error', message:'Error retrieving all breeds.', data: []});
     });
+})
+
+app.get('/breeds/:breedId', async (req, res) => {
+    const breedId = req.params.breedId;
+    const breedInfo = await redisClient.get(`${breedId}Info`);
+    if (breedInfo) {
+        console.log(breedInfo)
+        res.status(200).json({status:'Success', data: JSON.parse(breedInfo)});
+        return;
+    }
+    const url = `${catApiBaseUrl}/breeds/search?q=${breedId}`;
+    axios.get(url, {
+        headers: {
+            'x-api-key': key
+        }
+    })
+    .then(async response => { 
+        if (response.data && response.data.length > 0) {
+            await redisClient.set(`${breedId}Info`, JSON.stringify(response.data));
+            res.status(200).json({status:'Success', data: response.data});
+        } else
+            res.status(404).json({status:'Error', message: `No data found for breed ID ${breedId}`, data: []})
+    })
+    .catch(err => res.json({status:'error', message:`Error retrieving images for breed with id ${breedId}`, data: []}));
 })
 
 app.get('/images/:breedId', (req, res) => {
@@ -46,7 +83,8 @@ app.get('/images/:breedId', (req, res) => {
         res.status(405).json({status: 'Error', message: '405 Wrong Method'})
     }
     const breedId = req.params.breedId;
-    const url = `${dogApiBaseUrl}/images/search?breed_id=${breedId}&limit=50`;
+    //const breedImages = redisClient.get()
+    const url = `${catApiBaseUrl}/images/search?breed_id=${breedId}&limit=50`;
     axios.get(url, {
         headers: {
             'x-api-key': key

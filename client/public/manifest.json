@@ -1,9 +1,9 @@
 {
-  "short_name": "Dog Repawsitory",
+  "short_name": "Cat Repawsitory",
   "name": "The Dog Repawsitory",
   "icons": [
     {
-      "src": "favicon-32x32.png",
+      "src": "cat.png",
       "sizes": "32x32",
       "type": "image/png"
     }

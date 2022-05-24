@@ -7,6 +7,7 @@ const fetchBreedImages = async breedId => {
         images = await axios.get(`${apiUrl}/images/${breedId}`);
     } else {
         images = await axios.get(`/images/${breedId}`);
+        console.log(images.data)
     }
     return images.data.data;
 }

@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import Image from "./Image";
+import useFetchBreedImages from '../hooks/useFetchBreedImages';
 
 const Gallery = props => {
 	return (
@@ -8,7 +9,7 @@ const Gallery = props => {
 			{props.images
 				.map((image, index) => {
 					return (
-						<Grid item key={index} xs={6} sm={6} md={4} lg={4} xl={4}>
+						<Grid item key={index} xs={12} sm={6} md={4} lg={4} xl={4}>
 							<Image url={image.url} title={image.url} />      
 						</Grid>
 					);

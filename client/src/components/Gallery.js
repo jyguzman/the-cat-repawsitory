@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
 import Image from "./Image";
-import useFetchBreedImages from '../hooks/useFetchBreedImages';
 
 const Gallery = props => {
 	return (

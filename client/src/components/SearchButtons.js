@@ -1,10 +1,11 @@
 import { Button, Grid } from "@mui/material";
-
+import { useNavigate } from 'react-router-dom';
 const SearchButtons = (props) => {
+    const navigate = useNavigate();
     return (
         <Grid container justify='center' alignItems='center'>
             <Grid item>
-                <Button variant='contained' onClick={props.handleTopTenSearch}>
+                <Button variant='contained' onClick={() => navigate('/popular')}>
                     Top Cats
                 </Button>
             </Grid>

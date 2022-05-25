@@ -1,38 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import Search from "./Search";
 import BreedGallery from "./BreedGallery";
-import { useNavigate } from "react-router-dom";
-import TopCats from "./TopCats";
-import fetchMostSearched from "../utils/fetchMostSearched";
+import FiltersSection from "./FiltersSection";
 
-const CatSearchPage = () => {
-    const [topTen, setTopTen] = useState([]);
-    const [showTop, setShowTop] = useState(false);
-    const [showBreeds, setShowBreeds] = useState(true);
+const CatSearchPage = () => {   
+    const [filters, setFilters] = useState(null);
+    const updateFilters = (filter, num) => {
+        if (!filters || !(filter in filters) ) {
+          setFilters((prev) => ({
+            ...prev,
+            [filter]: [num]
+          }));
+        } else {
+            let values = filters[filter];
+            if (values.includes(num)) {
+                values = values.filter(value => value !== num);
+            } else {
+                values.push(num);
+            }
+            setFilters((prev) => ({
+              ...prev,
+              [filter]: values
+            }));
+        }
+      }
 
-    const navigate = useNavigate(); 
-
-    const handleTopTenSearch = async () => {
-        /*setTopTen(await fetchMostSearched());
-        setShowTop(true);
-        setShowBreeds(false);*/
-
-        navigate('/popular')
-    }
-
+      useEffect(() => {
+        console.log(filters);
+      }, [filters])
+    /*const updateFilters = (filters) => {
+        setFilters(filters);
+        console.log(filters)
+    }*/
     return (
         <Grid direction='column' justify='center' alignItems='center' container spacing={2}>
             <Grid justify='center' alignItems='center' item sx={{ 
                 paddingTop: '25%',
                 width: ['100%', '75%', '50%', '35%']
             }}>
-                <Search handleTopTenSearch={handleTopTenSearch}/>
+                <Search/>
             </Grid>
-            {showBreeds ? <Grid item>
+            <Grid item>
+                <FiltersSection filters={filters} updateFilters={updateFilters} />
+            </Grid>
+            <Grid item>
                 <BreedGallery/>
-            </Grid> : null}
-            {topTen && showTop ? <TopCats topTen={topTen}/> : null}
+            </Grid>
         </Grid>
     )
 }

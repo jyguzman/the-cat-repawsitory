@@ -104,6 +104,21 @@ app.get('/breeds/popular', (req, res) => {
     .catch(err => res.status(404).json({status: 'Error', message: 'Error retrieving top dogs', data: []}))
 })
 
+app.get('/filters', (req, res) => {
+    const params = req.query;
+    let filters = {};
+    for (const key in params) {
+        const values = params[key].map(value => parseInt(value));
+        filters[key] = { $in: values }
+    }
+    console.log(filters)
+    db.find(filters).toArray()
+    .then(filtered => {
+        res.status(200).json({status: "Success", data: filtered})
+    })
+    .catch(err => console.log(err));
+})
+
 app.get('/_ah/warmup', (req, res) => {
     res.json({status: 'Success'})
 })

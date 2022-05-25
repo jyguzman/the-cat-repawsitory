@@ -1,4 +1,4 @@
-const Image = (props) => {
+const GalleryImage = (props) => {
 	return (
 		<div>
 			<img src={props.url} 
@@ -13,4 +13,4 @@ const Image = (props) => {
 	);
 };
 
-export default Image;
+export default GalleryImage;

@@ -1,11 +1,10 @@
-import { Button, Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useFetchTopBreeds from "../hooks/useFetchTopBreeds";
 import BackButton from "./BackButton";
 
 const TopCats = () => {
     const topTen = useFetchTopBreeds();
-    const navigate = useNavigate();
     if (topTen) {
     return (
         <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>

@@ -25,7 +25,6 @@ const styles = {
 };
 
 const FiltersSection = (props) => {
-    let filters = props.filters;
     const filterKeys = [{"Energy": "energy_level"}, 
         {"Affectionate": "affection_level"}, {"Grooming": "grooming"},
         {"Vocal": "vocalisation"}, {"Child Friendly": "child_friendly"}, 

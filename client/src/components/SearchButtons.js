@@ -1,7 +1,9 @@
 import { Button, Grid } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-const SearchButtons = (props) => {
+
+const SearchButtons = () => {
     const navigate = useNavigate();
+    
     return (
         <Grid container justify='center' alignItems='center'>
             <Grid item>

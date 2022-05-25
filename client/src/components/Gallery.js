@@ -1,5 +1,5 @@
 import { Grid, CircularProgress} from "@mui/material";
-import Image from "./Image";
+import GalleryImage from "./GalleryImage";
 
 const Gallery = props => {
 	const images = props.images;
@@ -10,7 +10,7 @@ const Gallery = props => {
 				(images.map((image, index) => {
 					return (
 						<Grid item key={index} xs={12} sm={6} md={4} lg={4} xl={4}>
-							<Image url={image.url} title={image.url} />      
+							<GalleryImage url={image.url} title={image.url} />      
 						</Grid>
 					);
 				}))

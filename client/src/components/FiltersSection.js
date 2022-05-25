@@ -26,37 +26,38 @@ const styles = {
 
 const FiltersSection = (props) => {
     let filters = props.filters;
-    const filteKeys = ["energy_level, affection_level, grooming"]
+    const filterKeys = [{"Energy": "energy_level"}, 
+        {"Affectionate": "affection_level"}, {"Grooming": "grooming"},
+        {"Vocal": "vocalisation"}, {"Child Friendly": "child_friendly"}, 
+        {"Dog Friendly": "dog_friendly"}]
     return (
-        <Grid container justify="center" alignItems="center">
+        <Grid container justifyContent="center" alignItems="center">
             <Typography sx={styles.typography} variant="h4">Filter Breeds</Typography>
-            <Grid item container direction="column" justify="center" alignItems="center" spacing={1}>
-                <Grid container item direction="row" justify="center" alignItems="center" xs={12} sm={12} md={12} lg={12} >
-                    <Grid item>
-                        <Filter filterCats={props.filterCats} updateFilters={props.updateFilters} stat={"Energy Level"} filter={"energy_level"} filters={filters} />
-                    </Grid>
-                    <Grid item>
-                        <Filter filterCats={props.filterCats} updateFilters={props.updateFilters} stat={"Affection Level"} filter={"affection_level"} filters={filters} />
-                    </Grid>
-                    <Grid item>
-                        <Filter filterCats={props.filterCats} updateFilters={props.updateFilters} stat={"Grooming Requirements"} filter={"grooming"} filters={filters }/>
-                    </Grid>
-                </Grid>
-
-                {/*<Grid item container justify="center" xs={12}>
-                            <Grid container item direction="row" justify="center" alignItems="center" xs={12} sm={12} md={12} lg={12}>
-                                <Grid item >
-                                    <Filter filterCats={props.filterCats} reset={props.reset} updateFilters={props.updateFilters} stat={"Vocality"} filter={"vocalisation"} filters={filters} />
-                                </Grid>
-                                <Grid item>
-                                    <Filter filterCats={props.filterCats} reset={props.reset} updateFilters={props.updateFilters} stat={"Friendliness with Children"} filter={"child_friendly"} filters={filters}  />
-                                </Grid>
-                                <Grid item>
-                                    <Filter filterCats={props.filterCats} reset={props.reset}  updateFilters={props.updateFilters} stat={"Friendliness with Dogs"} filter={"dog_friendly"} filters={filters} />
-                                </Grid>
+            <Grid item container direction="row" justifyContent="center" alignItems="center" spacing={1}>
+                {
+                    filterKeys.slice(0, 3).map(filter => {
+                        const key = Object.keys(filter)[0]
+                        const value = filter[key]
+                        return (
+                            <Grid item key={key}>
+                                <Filter updateFilters={props.updateFilters} stat={key} filter={value} />
                             </Grid>
-                </Grid>*/}
-
+                        )
+                    })
+                }
+                <Grid item container direction="row" justifyContent="center" alignItems="center" spacing={1}>
+                    {
+                        filterKeys.slice(3).map(filter => {
+                            const key = Object.keys(filter)[0]
+                            const value = filter[key]
+                            return (
+                                <Grid item key={key}>
+                                    <Filter updateFilters={props.updateFilters} stat={key} filter={value} />
+                                </Grid>
+                            )
+                        })
+                    }
+                </Grid>
             </Grid>
             {/*<Button sx={styles.button} color="primary" variant="contained" onClick={props.resetFilters}>Reset Filters</Button>*/}
         </Grid>

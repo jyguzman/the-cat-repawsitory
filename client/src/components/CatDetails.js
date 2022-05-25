@@ -4,8 +4,9 @@ import Gallery from './Gallery';
 import { useNavigate, useParams } from 'react-router-dom';
 import useFetchBreedImages from '../hooks/useFetchBreedImages';
 import BreedContext from '../contexts/BreedContext';
+import BackButton from './BackButton';
+
 import { useContext } from 'react';
-import useFetchBreedInfo from '../hooks/useFetchBreedInfo';
 const styles = {
     paper: {
         padding: "30px",
@@ -32,17 +33,12 @@ const CatDetails = () => {
     const { id } = useParams();
     const cat = useContext(BreedContext).filter(cat => cat.id === id)[0];
     const images = useFetchBreedImages(id);
-    const navigate = useNavigate();
+
     if (cat) {
         return ( 
             <Container key="container">
                 <Grid container justifyContent={"center"}>
-                <Button 
-                    onClick={() => navigate('/')} 
-                    variant='contained'
-                    key="button">
-                        Back
-                    </Button>
+                <BackButton/>
                 </Grid>
                 <Paper elevation={8} sx={styles.paper}>
                     <Grid item container direction="row" justifyContent="center" alignItems="center" sx={styles.content} key="grid" sm={12} md={12} lg={12} xl={12}>
@@ -62,12 +58,7 @@ const CatDetails = () => {
                     </Grid>
                     <Gallery images={images} key={cat.id}/>
                     <Grid item container justifyContent={"center"}>
-                    <Button 
-                        onClick={() => navigate('/')} 
-                        variant='contained'
-                        key="button">
-                            Back
-                    </Button>
+                    <BackButton />
                     </Grid>
                 </Paper>
             </Container>

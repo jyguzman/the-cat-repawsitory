@@ -1,6 +1,7 @@
 import { Button, Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useFetchTopBreeds from "../hooks/useFetchTopBreeds";
+import BackButton from "./BackButton";
 
 const TopCats = () => {
     const topTen = useFetchTopBreeds();
@@ -8,12 +9,7 @@ const TopCats = () => {
     if (topTen) {
     return (
         <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>
-            <Grid item>
-                <Button 
-                onClick={() => navigate('/')}
-                variant='contained'
-                >Back</Button>
-            </Grid>
+            <BackButton />
             <Grid item container spacing={2}>
             {topTen.map(breed => {
                 const image = breed.image.url;

@@ -10,7 +10,7 @@ const MainPage = () => {
         <TitleBar/>
         <Routes>
             <Route exact path = '/' element={<CatSearchPage />} />
-            <Route path = "/:id" element={<CatDetails />} />
+            <Route path = "/:name" element={<CatDetails />} />
             <Route path = "/popular" element={<TopCats />} />
         </Routes>
         </>

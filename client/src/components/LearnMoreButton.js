@@ -4,10 +4,10 @@ import updateSearchCount from '../utils/updateSearchCount';
 
 const LearnMoreButton = (props) => {
     const navigate = useNavigate();
-    
+
     const handleClick = async () => {
         await updateSearchCount(props.cat.id);
-        navigate("/"+ props.cat.id);
+        navigate("/"+ props.cat.name);
     }
 
     return (

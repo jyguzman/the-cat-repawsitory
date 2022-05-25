@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import BreedContext from '../contexts/BreedContext';
 import updateSearchCount from "../utils/updateSearchCount";
 
-const SearchBar = (props) => {
+const SearchBar = () => {
     const breeds = useContext(BreedContext).filter(breed => "image" in breed);
     const navigate = useNavigate();
+
     const handleBreedSearch = async (event, value) => {
       if (value) {
         await updateSearchCount(value.id);
-        navigate('/' + value.id);
+        navigate('/' + value.name);
       }
     }
     return (

@@ -30,9 +30,9 @@ const styles = {
 };
 
 const CatDetails = () => {
-    const { id } = useParams();
-    const cat = useContext(BreedContext).filter(cat => cat.id === id)[0];
-    const images = useFetchBreedImages(id);
+    const { name } = useParams();
+    const cat = useContext(BreedContext).filter(cat => cat.name === name)[0];
+    const images = useFetchBreedImages(cat.id);
 
     if (cat) {
         return ( 

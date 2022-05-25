@@ -19,7 +19,7 @@ const SearchBar = (props) => {
         options={breeds}
         getOptionLabel={(breed) => breed.name}
         isOptionEqualToValue={(breed, value) => breed.id === value.id}
-        onChange={(event, value) => props.handleBreedSearch(event, value)}
+        onChange={(event, value) => handleBreedSearch(event, value)}
         renderInput={(params) => <TextField {...params} 
             label="Search breeds" variant="outlined" />}
       />

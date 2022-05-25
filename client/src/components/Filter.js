@@ -7,13 +7,14 @@ const Filter = (props) => {
     const [filterState, setFilterState] = useState(filters ? filters[filter] : []);
 
     const handleClick = (num) => {
+        props.updateFilters(filter, num);
         if (filterState.includes(num)) {
             const removed = filterState.filter(n => n !== num)
             setFilterState(removed);
             return;
         }
         setFilterState([...filterState, num]);
-        props.updateFilters(filter, num);
+        console.log(filter, filterState)
     }
     return (    
         <Grid item container direction="column" justify="center">

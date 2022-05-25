@@ -1,15 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Grid } from '@mui/material';
 import ImageCard from './ImageCard' 
 import BreedContext from '../contexts/BreedContext';
 
 const BreedGallery = (props) => {
-    const breeds = useContext(BreedContext).filter(cat => 'image' in cat);    
+    //if (props.breeds && props.breeds.length > 0) {
     return (
-        <Grid container item justify="center" alignItems="center" spacing={3}>
+        <Grid container item justifyContent="center" alignItems="center" spacing={3}>
             {  
-                breeds//.slice((page - 1) * perPage, page * perPage)
-                .map((cat, index) => {
+                props.breeds.filter(cat => "image" in cat).map((cat, index) => {
                     return (
                         <ImageCard cat={cat} index={index} key={index} />
                     )
@@ -17,6 +16,7 @@ const BreedGallery = (props) => {
             }
         </Grid> 
     );
+      //  }
 }
 
 export default BreedGallery;

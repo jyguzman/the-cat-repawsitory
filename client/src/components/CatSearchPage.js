@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { Grid, Button } from "@mui/material";
 import Search from "./Search";
 import BreedGallery from "./BreedGallery";
 import FiltersSection from "./FiltersSection";
+import BreedContext from "../contexts/BreedContext";
+import axios from "axios";
 
 const CatSearchPage = () => {   
+    const breeds = useContext(BreedContext).filter(cat => 'image' in cat);;
     const [filters, setFilters] = useState(null);
+    const [filteredBreeds, setFilteredBreeds] = useState(breeds);
+    
     const updateFilters = (filter, num) => {
         if (!filters || !(filter in filters) ) {
-          setFilters((prev) => ({...prev,[filter]: [num]}));
-          return;
+            setFilters((prev) => ({...prev,[filter]: [num]}));
+            return;
         }
         let values = filters[filter];
         if (values.includes(num)) {
@@ -18,11 +23,26 @@ const CatSearchPage = () => {
             values.push(num);
         }
         setFilters((prev) => ({...prev, [filter]: values}));
-      }
+    }
 
-      useEffect(() => {
-        console.log(filters);
-      }, [filters])
+    const applyFilters = async () => {
+        const filtered = await axios.get('/filters', {
+            params: (filters ? filters : {'energy_level': []})
+        });
+        setFilteredBreeds(filtered.data);
+    }
+
+    useEffect(() => {
+        const getFiltered = async () => {
+            const filtered = await axios.get('/filters', {
+                params: (filters ? filters : {'energy_level': []})
+            })
+            setFilteredBreeds(filtered.data.data);
+        }
+        getFiltered();
+        console.log(filteredBreeds)
+    }, [filters])
+
     return (
         <Grid direction='column' justify='center' alignItems='center' container spacing={2}>
             <Grid justify='center' alignItems='center' item sx={{ 
@@ -35,7 +55,10 @@ const CatSearchPage = () => {
                 <FiltersSection filters={filters} updateFilters={updateFilters} />
             </Grid>
             <Grid item>
-                <BreedGallery/>
+                <Button onClick={() => applyFilters()}>Apply Filters</Button>
+            </Grid>
+            <Grid item>
+                <BreedGallery breeds={filteredBreeds}/>
             </Grid>
         </Grid>
     )

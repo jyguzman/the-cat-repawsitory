@@ -105,14 +105,13 @@ app.get('/breeds/popular', (req, res) => {
 })
 
 app.get('/filters', (req, res) => {
-    const params = req.query;
-    let filters = {};
-    for (const key in params) {
-        const values = params[key].map(value => parseInt(value));
-        filters[key] = { $in: values }
+    const filters = req.query;
+    let query = {};
+    for (const filterType in filters) {
+        const values = filters[filterType].map(value => parseInt(value));
+        query[filterType] = { $in: values }
     }
-    console.log(filters)
-    db.find(filters).toArray()
+    db.find(query).toArray()
     .then(filtered => {
         res.status(200).json({status: "Success", data: filtered})
     })

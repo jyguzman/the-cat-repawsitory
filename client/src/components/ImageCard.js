@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import { Grid, Card, CardMedia, CardContent, CardActions, Typography, Divider } from '@mui/material';
 import LearnMoreButton from './LearnMoreButton';
 const ImageCard = ( props )  => {
     const cat = props.cat;
-    if (!('image' in cat))
-        console.log(cat)
+    
     return (
         <Grid item container justify="center" xs={12} sm={6} md={4} lg={4} xl={4}>
             <Card>            

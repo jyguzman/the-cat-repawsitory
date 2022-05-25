@@ -14,7 +14,6 @@ const Filter = (props) => {
             return;
         }
         setFilterState([...filterState, num]);
-        console.log(filter, filterState)
     }
     return (    
         <Grid item container direction="column" justify="center">

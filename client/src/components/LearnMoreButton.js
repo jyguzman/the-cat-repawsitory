@@ -1,15 +1,18 @@
-import React from 'react';
 import { Button, Grid } from '@mui/material';
 import { useNavigate  } from 'react-router-dom';
-import BreedContext from '../contexts/BreedContext';
+import updateSearchCount from '../utils/updateSearchCount';
 
 const LearnMoreButton = (props) => {
     const navigate = useNavigate();
+    const handleClick = async () => {
+        await updateSearchCount(props.cat.id);
+        navigate("/"+ props.cat.id);
+    }
     return (
         <Grid container justify="center">
             <Button variant="contained" 
                 color="primary" 
-                onClick={() => navigate("/"+ props.cat.id)}>
+                onClick={() => handleClick()}>
                 Learn More
             </Button>
         </Grid>

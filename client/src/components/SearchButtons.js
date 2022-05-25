@@ -5,7 +5,7 @@ const SearchButtons = (props) => {
         <Grid container justify='center' alignItems='center'>
             <Grid item>
                 <Button variant='contained' onClick={props.handleTopTenSearch}>
-                    Top Dogs
+                    Top Cats
                 </Button>
             </Grid>
         </Grid>

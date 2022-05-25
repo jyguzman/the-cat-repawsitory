@@ -1,16 +1,25 @@
-import { useContext } from "react";
+import { useState } from "react";
 import { Grid } from "@mui/material";
 import Search from "./Search";
 import BreedGallery from "./BreedGallery";
 import { useNavigate } from "react-router-dom";
+import TopCats from "./TopCats";
+import fetchMostSearched from "../utils/fetchMostSearched";
 
 const CatSearchPage = () => {
-    const navigate = useNavigate();
-    const handleBreedSearch = (event, value) => {
-        if (value) {
-            navigate('/' + value.id);
-        }
-    } 
+    const [topTen, setTopTen] = useState([]);
+    const [showTop, setShowTop] = useState(false);
+    const [showBreeds, setShowBreeds] = useState(true);
+
+    const navigate = useNavigate(); 
+
+    const handleTopTenSearch = async () => {
+        /*setTopTen(await fetchMostSearched());
+        setShowTop(true);
+        setShowBreeds(false);*/
+
+        navigate('/popular')
+    }
 
     return (
         <Grid direction='column' justify='center' alignItems='center' container spacing={2}>
@@ -18,11 +27,12 @@ const CatSearchPage = () => {
                 paddingTop: '25%',
                 width: ['100%', '75%', '50%', '35%']
             }}>
-                <Search handleBreedSearch={handleBreedSearch}/>
+                <Search handleTopTenSearch={handleTopTenSearch}/>
             </Grid>
-            <Grid item>
+            {showBreeds ? <Grid item>
                 <BreedGallery/>
-            </Grid>
+            </Grid> : null}
+            {topTen && showTop ? <TopCats topTen={topTen}/> : null}
         </Grid>
     )
 }

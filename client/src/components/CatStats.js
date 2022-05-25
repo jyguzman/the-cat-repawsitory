@@ -11,7 +11,6 @@ const styles = {
 
 const CatStats = (props) => {
     const cat = props.cat;
-    //const stats = cat
     return (
         <Grid item container direction="row" justifyContent="center" alignItems='center' sx={styles.list} xs={12} sm={12} md={12} lg={12}>
             <Grid item>

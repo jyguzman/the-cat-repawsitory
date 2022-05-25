@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Grid } from '@mui/material';
 import ImageCard from './ImageCard' 
 import BreedContext from '../contexts/BreedContext';
-import useFetchBreedInfo from '../hooks/useFetchBreedInfo';
+
 const BreedGallery = (props) => {
     const breeds = useContext(BreedContext).filter(cat => 'image' in cat);    
     return (

@@ -18,7 +18,7 @@ const ImageCard = ( props )  => {
                 </CardContent>
                 <Divider variant="middle"/>
                 <CardActions>
-                    <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
+                    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={4}>
                         <Grid item><LearnMoreButton cat={cat} /></Grid>
                     </Grid>
                 </CardActions>

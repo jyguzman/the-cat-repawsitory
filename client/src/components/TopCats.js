@@ -1,10 +1,22 @@
-import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { Button, Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import useFetchTopBreeds from "../hooks/useFetchTopBreeds";
 
-const TopDogs = (props) => {
+const TopCats = () => {
+    const topTen = useFetchTopBreeds();
+    const navigate = useNavigate();
+    if (topTen) {
     return (
-        <Grid container spacing={2}>
-            {props.topTen.map(breed => {
-                const image = breed.image;
+        <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <Grid item>
+                <Button 
+                onClick={() => navigate('/')}
+                variant='contained'
+                >Back</Button>
+            </Grid>
+            <Grid item container spacing={2}>
+            {topTen.map(breed => {
+                const image = breed.image.url;
                 const name = breed.name;
                 const searches = breed.searches;
                 return (
@@ -24,8 +36,10 @@ const TopDogs = (props) => {
                     </Grid>
                 )
             })}
+            </Grid>
         </Grid>
-    )
+    );
+    }
 }
 
-export default TopDogs;
+export default TopCats;

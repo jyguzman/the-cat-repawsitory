@@ -5,7 +5,7 @@ import BreedContext from '../contexts/BreedContext';
 import updateSearchCount from "../utils/updateSearchCount";
 
 const SearchBar = (props) => {
-    const breeds = useContext(BreedContext);
+    const breeds = useContext(BreedContext).filter(breed => "image" in breed);
     const navigate = useNavigate();
     const handleBreedSearch = async (event, value) => {
       if (value) {

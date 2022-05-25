@@ -4,7 +4,6 @@ import ImageCard from './ImageCard'
 import BreedContext from '../contexts/BreedContext';
 
 const BreedGallery = (props) => {
-    //if (props.breeds && props.breeds.length > 0) {
     return (
         <Grid container item justifyContent="center" alignItems="center" spacing={3}>
             {  
@@ -16,7 +15,6 @@ const BreedGallery = (props) => {
             }
         </Grid> 
     );
-      //  }
 }
 
 export default BreedGallery;

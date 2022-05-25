@@ -29,7 +29,7 @@ const Filter = (props) => {
                                     <Button key={num} 
                                     variant="contained"
                                     onClick = {() => handleClick(num)}
-                                    color={filterState.includes(num) ? 'primary' : 'secondary'}
+                                    color={filterState.includes(num) ? 'primary' : 'inherit'}
                                     >{num}</Button>
                                 )
                             })}

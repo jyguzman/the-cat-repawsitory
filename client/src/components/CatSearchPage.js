@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Grid, Button } from "@mui/material";
 import Search from "./Search";
 import BreedGallery from "./BreedGallery";
@@ -25,13 +25,6 @@ const CatSearchPage = () => {
         setFilters((prev) => ({...prev, [filter]: values}));
     }
 
-    const applyFilters = async () => {
-        const filtered = await axios.get('/filters', {
-            params: (filters ? filters : {'energy_level': []})
-        });
-        setFilteredBreeds(filtered.data);
-    }
-
     useEffect(() => {
         const getFiltered = async () => {
             const filtered = await axios.get('/filters', {
@@ -40,7 +33,6 @@ const CatSearchPage = () => {
             setFilteredBreeds(filtered.data.data);
         }
         getFiltered();
-        console.log(filteredBreeds)
     }, [filters])
 
     return (
@@ -53,9 +45,6 @@ const CatSearchPage = () => {
             </Grid>
             <Grid item>
                 <FiltersSection filters={filters} updateFilters={updateFilters} />
-            </Grid>
-            <Grid item>
-                <Button onClick={() => applyFilters()}>Apply Filters</Button>
             </Grid>
             <Grid item>
                 <BreedGallery breeds={filteredBreeds}/>

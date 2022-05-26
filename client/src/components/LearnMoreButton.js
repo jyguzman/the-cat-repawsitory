@@ -7,7 +7,7 @@ const LearnMoreButton = (props) => {
 
     const handleClick = async () => {
         await updateSearchCount(props.cat.id);
-        navigate("/"+ props.cat.name);
+        navigate("/"+ props.cat.name, { state: { id: props.cat.id }});
     }
 
     return (

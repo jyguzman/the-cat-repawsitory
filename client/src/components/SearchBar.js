@@ -11,7 +11,7 @@ const SearchBar = () => {
     const handleBreedSearch = async (event, value) => {
       if (value) {
         await updateSearchCount(value.id);
-        navigate('/' + value.name);
+        navigate('/' + value.name, { state: { id: value.id }});
       }
     }
     return (

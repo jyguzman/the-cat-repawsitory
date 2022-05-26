@@ -25,7 +25,9 @@ MongoClient.connect(URI,
     db = client.db('cats').collection('breeds');
 });
 
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({
+    //url: `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
+});
 redisClient.connect();
 
 app.get('/', (req, res) => {

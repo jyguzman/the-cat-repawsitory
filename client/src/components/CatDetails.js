@@ -1,12 +1,12 @@
-import { Container, CardMedia, Button, Paper, Grid, Typography } from '@mui/material';
+import { Container, CardMedia, Paper, Grid, Typography } from '@mui/material';
 import CatStats from './CatStats';
 import Gallery from './Gallery';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useFetchBreedImages from '../hooks/useFetchBreedImages';
 import BreedContext from '../contexts/BreedContext';
 import BackButton from './BackButton';
-
 import { useContext } from 'react';
+
 const styles = {
     paper: {
         padding: "30px",
@@ -30,9 +30,10 @@ const styles = {
 };
 
 const CatDetails = () => {
-    const { name } = useParams();
-    const cat = useContext(BreedContext).filter(cat => cat.name === name)[0];
-    const images = useFetchBreedImages(cat.id);
+    const location = useLocation();
+    const id = location.state.id;
+    const cat = useContext(BreedContext).filter(cat => cat.id === id)[0];
+    const images = useFetchBreedImages(id);
 
     if (cat) {
         return ( 

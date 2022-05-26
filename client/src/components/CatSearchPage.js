@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Grid, Button } from "@mui/material";
+import { Grid, CircularProgress, Typography } from "@mui/material";
 import Search from "./Search";
 import BreedGallery from "./BreedGallery";
 import FiltersSection from "./FiltersSection";
@@ -9,6 +9,7 @@ import axios from "axios";
 const CatSearchPage = () => {   
     const breeds = useContext(BreedContext).filter(cat => 'image' in cat);;
     const [filters, setFilters] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [filteredBreeds, setFilteredBreeds] = useState(breeds);
     
     const updateFilters = (filter, num) => {
@@ -26,6 +27,7 @@ const CatSearchPage = () => {
     }
 
     useEffect(() => {
+        setLoading(true);
         const getFiltered = async () => {
             const filtered = await axios.get('/filters', {
                 params: (filters ? filters : {'energy_level': []})
@@ -33,6 +35,7 @@ const CatSearchPage = () => {
             setFilteredBreeds(filtered.data.data);
         }
         getFiltered();
+        setLoading(false);
     }, [filters])
 
     return (
@@ -47,7 +50,9 @@ const CatSearchPage = () => {
                 <FiltersSection filters={filters} updateFilters={updateFilters} />
             </Grid>
             <Grid item>
-                <BreedGallery breeds={filteredBreeds}/>
+                {filteredBreeds && filteredBreeds.length > 0 && !loading 
+                    ? <BreedGallery breeds={filteredBreeds}/> : 
+                    (loading ? <CircularProgress/> : <Typography>No results.</Typography>)}
             </Grid>
         </Grid>
     )

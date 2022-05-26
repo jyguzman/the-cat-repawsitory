@@ -5,13 +5,13 @@ const useFetchBreedInfo = breedId => {
     const [info, setInfo] = useState([]);
     
     useEffect(() => {
+        console.log("kdlksdklslkdlk")
         const retrieveInfo = async () => {
             const info = await axios.get(`/breeds/${breedId}`);
             setInfo(info.data.data);
         }
-        
         retrieveInfo();
-    }, [breedId]);
+    }, []);
     return info;
 }
 

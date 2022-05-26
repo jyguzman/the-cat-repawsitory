@@ -26,7 +26,7 @@ MongoClient.connect(URI,
 });
 
 const redisClient = redis.createClient({
-    //url: `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
+    url: `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
 });
 redisClient.connect();
 
@@ -54,6 +54,14 @@ app.get('/breeds/cats', async (req, res) => {
     .catch(err => {
         res.status(404).send({status:'error', message:'Error retrieving all breeds.', data: []});
     });
+})
+
+app.get('/breeds/:name', (req, res) => {
+    db.find({name: req.params.name}).toArray()
+    .then(breed => {
+        res.status(200).json({status: "Success", data: breed})
+    })
+    .catch(err => console.log(err));
 })
 
 app.get('/images/:breedId', (req, res) => {

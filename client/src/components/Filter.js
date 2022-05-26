@@ -20,7 +20,7 @@ const Filter = (props) => {
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <Grid item container direction="column">
                     <Grid item>
-                        <Typography component="legend">{props.stat}</Typography>
+                        <Typography sx={{textAlign: 'center'}} component="legend">{props.stat}</Typography>
                     </Grid>
                     <Grid item container justify="center" alignItems="center">
                         <ButtonGroup>

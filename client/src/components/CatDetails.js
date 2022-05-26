@@ -6,7 +6,7 @@ import useFetchBreedImages from '../hooks/useFetchBreedImages';
 import updateSearchCount from '../utils/updateSearchCount';
 import BreedContext from '../contexts/BreedContext';
 import BackButton from './BackButton';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SadCat from './SadCat';
 
 const styles = {
@@ -49,12 +49,11 @@ const CatDetails = () => {
     useEffect(() => {
         if (!location.state)
             updateSearchCountIfTypedInURL(id);
-    }, []) 
+    }, []);
     const name = location.pathname.slice(1);
     const id = location.state?.id ?? getIdFromName(name); 
     const cat = useContext(BreedContext).filter(cat => cat.id === id)[0];
     const images = useFetchBreedImages(id);
-
 
     if (cat) {
         return ( 
@@ -86,9 +85,7 @@ const CatDetails = () => {
             </Container>
         );
     }
-    return (
-        <SadCat />
-    )
+    return (<SadCat />)
 }
 
 export default CatDetails;

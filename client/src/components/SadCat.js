@@ -3,8 +3,7 @@ import { Typography, CardMedia, Grid } from "@mui/material";
 
 const SadCat = () => {
     return (
-        <Grid container direction="column" justifyContent="center" alignItems="center">
-            <BackButton />  
+        <Grid container direction="column" justifyContent="center" alignItems="center"> 
             <Typography variant="h5" gutterBottom paragraph>Oh no! Did you get lost?</Typography>
             <CardMedia 
                 component="img"
@@ -13,6 +12,7 @@ const SadCat = () => {
                     maxWidth: ['100%', '75%', '50%'],
                     borderRadius: '10px'}}
             />
+            <BackButton /> 
         </Grid>
     )
 }

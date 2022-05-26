@@ -1,5 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
 const BackButton = () => {
     const navigate = useNavigate();
     return (
@@ -10,7 +11,7 @@ const BackButton = () => {
                 onClick={() => navigate('/')} 
                 variant='contained'
                 key="button">
-                Back
+                Home
             </Button>
         </Grid>
     )

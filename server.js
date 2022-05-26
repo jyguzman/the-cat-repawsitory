@@ -26,7 +26,7 @@ MongoClient.connect(URI,
 });
 
 const redisClient = redis.createClient({
-    url: `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
+    //url: `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
 });
 redisClient.connect();
 
@@ -46,13 +46,12 @@ app.get('/breeds/cats', async (req, res) => {
         res.status(200).json({status: 'Success', data: JSON.parse(cats)});
         return;
     }
-    axios.get(`${catApiBaseUrl}/breeds`, { headers: { 'x-api-key': key } } )
-    .then(async response => {
-        await redisClient.set('cats', JSON.stringify(response.data));
-        res.status(200).json({status: 'Success', data: response.data})
-    })
-    .catch(err => {
-        res.status(404).send({status:'error', message:'Error retrieving all breeds.', data: []});
+    db.find({}).toArray()
+    .then(async breeds => {
+        await redisClient.set('cats', JSON.stringify(breeds))
+        res.status(200).json({status: "Success", data: breeds})
+    }).catch(err => {
+        res.status(404).send({status:'Error', message:'Error retrieving all breeds.', data: []});
     });
 })
 

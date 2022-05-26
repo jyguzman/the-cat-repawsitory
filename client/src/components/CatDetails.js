@@ -3,11 +3,10 @@ import CatStats from './CatStats';
 import Gallery from './Gallery';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useFetchBreedImages from '../hooks/useFetchBreedImages';
-import useFetchBreedInfo from '../hooks/useFetchBreedInfo';
 import BreedContext from '../contexts/BreedContext';
 import BackButton from './BackButton';
-import { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { useContext } from 'react';
+import SadCat from './SadCat';
 
 const styles = {
     paper: {
@@ -43,9 +42,9 @@ const getIdFromName = name => {
 const CatDetails = () => {
     const location = useLocation();
     const name = location.pathname.slice(1);
-    const id = location.state?.id ?? getIdFromName(name);
+    const id = location.state?.id ?? getIdFromName(name);    
     const cat = useContext(BreedContext).filter(cat => cat.id === id)[0];
-    const images = useFetchBreedImages(id)
+    const images = useFetchBreedImages(id);
 
     if (cat) {
         return ( 
@@ -77,6 +76,9 @@ const CatDetails = () => {
             </Container>
         );
     }
+    return (
+        <SadCat />
+    )
 }
 
 export default CatDetails;

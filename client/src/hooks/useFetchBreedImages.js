@@ -10,7 +10,6 @@ const useFetchBreedImages = breedId => {
             const images = await axios.get(`/images/${breedId}`);
             setImages(images.data.data);
         }
-        
         retrieveImages();
     }, []);
     

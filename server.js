@@ -55,14 +55,6 @@ app.get('/breeds/cats', async (req, res) => {
     });
 })
 
-app.get('/breeds/:name', (req, res) => {
-    db.find({name: req.params.name}).toArray()
-    .then(breed => {
-        res.status(200).json({status: "Success", data: breed})
-    })
-    .catch(err => console.log(err));
-})
-
 app.get('/images/:breedId', (req, res) => {
     if (req.method !== 'GET') {
         res.status(405).json({status: 'Error', message: '405 Wrong Method'})
@@ -74,11 +66,7 @@ app.get('/images/:breedId', (req, res) => {
         return;
     }
     const url = `${catApiBaseUrl}/images/search?breed_id=${breedId}&limit=50`;
-    axios.get(url, {
-        headers: {
-            'x-api-key': key
-        }
-    })
+    axios.get(url, { headers: { 'x-api-key': key }})
     .then(async response => { 
         if (response.data && response.data.length > 0) {
             await redisClient.set(`${breedId}Images`, JSON.stringify(response.data))
@@ -89,7 +77,7 @@ app.get('/images/:breedId', (req, res) => {
     .catch(err => res.json({status:'error', message:`Error retrieving images for breed with id ${breedId}`, data: []}));
 })
 
-app.put('/update/increment/:breedId', (req, res) => {
+app.put('/update/search-count/:breedId', (req, res) => {
     if (req.method !== 'PUT') {
         res.status(405).json({status: 'Error', message: '405 Wrong Method'})
     }

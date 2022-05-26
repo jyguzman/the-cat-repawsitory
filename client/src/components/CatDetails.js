@@ -1,11 +1,12 @@
 import { Container, CardMedia, Paper, Grid, Typography } from '@mui/material';
 import CatStats from './CatStats';
 import Gallery from './Gallery';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useFetchBreedImages from '../hooks/useFetchBreedImages';
+import updateSearchCount from '../utils/updateSearchCount';
 import BreedContext from '../contexts/BreedContext';
 import BackButton from './BackButton';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import SadCat from './SadCat';
 
 const styles = {
@@ -39,12 +40,21 @@ const getIdFromName = name => {
         return name.slice(0, 1) + splitName[1].slice(0,3);
 }
 
+const updateSearchCountIfTypedInURL = async breedId => {
+    await updateSearchCount(breedId);
+}
+
 const CatDetails = () => {
     const location = useLocation();
+    useEffect(() => {
+        if (!location.state)
+            updateSearchCountIfTypedInURL(id);
+    }, []) 
     const name = location.pathname.slice(1);
-    const id = location.state?.id ?? getIdFromName(name);    
+    const id = location.state?.id ?? getIdFromName(name); 
     const cat = useContext(BreedContext).filter(cat => cat.id === id)[0];
     const images = useFetchBreedImages(id);
+
 
     if (cat) {
         return ( 

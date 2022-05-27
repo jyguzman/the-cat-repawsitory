@@ -1,21 +1,22 @@
-import { Grid, List, ListItem } from '@mui/material';
+import { Grid } from '@mui/material';
 import StatRating from './StatRating';
 
 
 const StatList = (props) => {
     const stats = props.stats;
-
     return (
-        <Grid item container xs={8} sm={6} md={6} lg={6} xl={6} justify="center">
-            <List > 
+        <Grid item container 
+        columns={{xs: 3, sm: 4, md: 3, lg:5}} 
+        xs={12} sm={16} md={12} lg={6}
+        justifyContent="center" 
+        alignItems='center'>
                 {
                     stats.map((statType, index) => {
                         return (
-                            <ListItem key={index}><StatRating stat={Object.keys(statType)} value={statType[Object.keys(statType)]}  /></ListItem>
+                            <StatRating stat={Object.keys(statType)} value={statType[Object.keys(statType)]}  />
                         )
                     })
                 }
-            </List>
         </Grid>
     );
 }

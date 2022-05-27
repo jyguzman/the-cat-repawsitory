@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
-const FiltersContext = createContext(
+const AttributesContext = createContext(
     ["energy_level", "affection_level", "grooming",
     "vocalisation", "child_friendly", "dog_friendly"]
 );
 
-export default FiltersContext;
+export default AttributesContext;

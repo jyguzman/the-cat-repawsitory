@@ -5,11 +5,11 @@ import BreedGallery from "./BreedGallery";
 import FiltersSection from "./FiltersSection";
 import BreedContext from "../contexts/BreedContext";
 import axios from "axios";
-import FiltersContext from "../contexts/FiltersContext";
+import AttributesContext from "../contexts/AttributesContext";
 
 const CatSearchPage = () => {   
     const breeds = useContext(BreedContext).filter(cat => 'image' in cat);;
-    const attributes_ = useContext(FiltersContext);
+    const attributes_ = useContext(AttributesContext);
     const [attributeFilters, setAttributeFilters] = useState(attributes_)
     const [filters, setFilters] = useState(null);
     const [filteredBreeds, setFilteredBreeds] = useState(breeds);

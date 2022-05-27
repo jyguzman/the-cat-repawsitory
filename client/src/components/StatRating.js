@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, Rating } from '@mui/material';
+import { Grid, Box, Typography, Rating, Stack } from '@mui/material';
 
 const styles = {
     typography: {
@@ -8,7 +8,7 @@ const styles = {
 
 const StatRating = (props) => {
     return (
-        <Grid item container direction="column" justify="center">
+        <Stack justifyContent='center' alignItems='center'>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <Typography sx={styles.typography} component="legend">{props.stat}</Typography>
                 <Rating
@@ -18,7 +18,7 @@ const StatRating = (props) => {
                 readOnly
                 />
             </Box>
-        </Grid>
+        </Stack>
     );
 }
 

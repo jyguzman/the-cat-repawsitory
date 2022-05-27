@@ -1,7 +1,5 @@
-import React , { useContext } from 'react';
 import Filter from './Filter';
-import { Grid, Button, Typography, Accordion, AccordionSummary, AccordionDetails} from '@mui/material';
-import FiltersContext from '../contexts/FiltersContext';
+import { Grid, Typography } from '@mui/material';
 
 const styles = {
     container: {
@@ -26,12 +24,9 @@ const styles = {
 };
 
 const getFilterNameFromAttributeName = (attribute) => {
-    const split = attribute.replace(/_/g,' ').split(' ')
-    let result = ''
-    for (let i = 0; i < split.length; i++) {
-        result += split[i].charAt(0).toUpperCase() + split[i].slice(1) + ' '
-    }
-    return result.trim()
+    return attribute.split('_').map(word => 
+    	word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ')
 }
 
 const FiltersSection = (props) => {
@@ -48,13 +43,15 @@ const FiltersSection = (props) => {
             justifyContent="center" 
             alignItems="center" 
             spacing={2}
-            columns={16}>
+            columns={{xs: 16, sm: 16, lg: 16}}
+            >
                 {
                     Object.keys(attributeFilters).map(filter => {
                         const key = filter
                         const value = attributeFilters[key]
                         return (
-                            <Grid item key={key} md={5} lg={5} xl={5}>
+                            <Grid item container justifyContent='center' key={key} 
+                                xs={12} sm={5} md={4} lg={4} xl={5}>
                                 <Filter deleteFilter={props.deleteFilter} updateFilters={props.updateFilters} stat={key} filter={value} filters={filters}/>
                             </Grid>
                         )

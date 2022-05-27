@@ -73,7 +73,7 @@ const CatDetails = () => {
                             </Grid>
                             <Typography sx={styles.typography} variant="body1" key="description">{cat.description}</Typography> 
                         </Grid>
-                        <Grid item sm={6}>
+                        <Grid item>
                             <CatStats cat={cat} key={cat.name}/> 
                         </Grid>                   
                     </Grid>

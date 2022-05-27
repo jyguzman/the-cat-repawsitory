@@ -5,9 +5,12 @@ import BreedGallery from "./BreedGallery";
 import FiltersSection from "./FiltersSection";
 import BreedContext from "../contexts/BreedContext";
 import axios from "axios";
+import FiltersContext from "../contexts/FiltersContext";
 
 const CatSearchPage = () => {   
     const breeds = useContext(BreedContext).filter(cat => 'image' in cat);;
+    const attributes_ = useContext(FiltersContext);
+    const [attributeFilters, setAttributeFilters] = useState(attributes_)
     const [filters, setFilters] = useState(null);
     const [filteredBreeds, setFilteredBreeds] = useState(breeds);
     
@@ -23,6 +26,20 @@ const CatSearchPage = () => {
             values.push(num);
         }
         setFilters((prev) => ({...prev, [filter]: values}));
+    }
+
+    const deleteFilter = (filter) => {
+        setAttributeFilters(attributeFilters.filter(attr => attr !== filter))
+        if (filters && filter in filters) {
+            const filtersCopy = JSON.parse(JSON.stringify(filters))
+            delete filtersCopy[filter]
+            setFilters(filtersCopy)
+        }
+    }
+
+    const addFilter = (event, filter) => {
+        if (filter)
+            setAttributeFilters([...attributeFilters, filter]);
     }
 
     useEffect(() => {
@@ -41,10 +58,10 @@ const CatSearchPage = () => {
                 paddingTop: '25%',
                 width: ['100%', '75%', '50%', '35%']
             }}>
-                <Search/>
+                <Search addFilter={addFilter} attributesInUse={attributeFilters}/>
             </Grid>
             <Grid item>
-                <FiltersSection filters={filters} updateFilters={updateFilters} />
+                <FiltersSection deleteFilter={deleteFilter} attributeFilters={attributeFilters} filters={filters} updateFilters={updateFilters} />
             </Grid>
             <Grid item>
                 {filteredBreeds && filteredBreeds.length > 0  

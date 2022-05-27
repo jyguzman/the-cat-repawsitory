@@ -1,4 +1,4 @@
-import { Grid, Stack } from '@mui/material';
+import { Grid } from '@mui/material';
 import SearchBar from "./SearchBar";
 import SearchButtons from "./SearchButtons";
 import AddFilterSearchBar from './AddFilterSearchBar';

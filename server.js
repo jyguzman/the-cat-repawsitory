@@ -108,7 +108,6 @@ app.get('/filters', (req, res) => {
         const values = filters[filterType].map(value => parseInt(value));
         query[filterType] = { $in: values }
     }
-    console.log(query)
     db.find(query).toArray()
     .then(filtered => {
         res.status(200).json({status: "Success", data: filtered})

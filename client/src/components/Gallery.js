@@ -1,4 +1,4 @@
-import { Grid, CircularProgress} from "@mui/material";
+import { Grid, CircularProgress } from "@mui/material";
 import GalleryImage from "./GalleryImage";
 
 const Gallery = props => {

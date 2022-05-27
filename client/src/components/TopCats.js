@@ -1,5 +1,4 @@
 import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import useFetchTopBreeds from "../hooks/useFetchTopBreeds";
 import BackButton from "./BackButton";
 

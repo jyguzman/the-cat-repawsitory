@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import ImageCard from './ImageCard' 
 
 const BreedGallery = (props) => {

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Grid, CircularProgress, Typography, Button } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Search from "./Search";
 import BreedGallery from "./BreedGallery";
 import FiltersSection from "./FiltersSection";

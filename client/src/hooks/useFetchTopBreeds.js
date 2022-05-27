@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import fetchMostSearched from "../utils/fetchMostSearched";
-const axios = require("axios");
 
 const useFetchTopBreeds = () => {
     const [popular, setPopular] = useState([]);

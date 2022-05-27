@@ -6,7 +6,7 @@ import useFetchBreedImages from '../hooks/useFetchBreedImages';
 import updateSearchCount from '../utils/updateSearchCount';
 import BreedContext from '../contexts/BreedContext';
 import BackButton from './BackButton';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import SadCat from './SadCat';
 
 const styles = {

@@ -17,8 +17,7 @@ const getFilterNameFromAttributeName = (attribute) => {
 
 const AddFilterSearchBar = (props) => {
     const attributesInUse = props.attributesInUse;
-    const options = allAttributes
-    .filter(attribute => !attributesInUse.includes(attribute))
+    const options = allAttributes.filter(attribute => !attributesInUse.includes(attribute))
     return (
       <Autocomplete
         id="breed-search-bar"

@@ -1,6 +1,7 @@
-import React , { useState } from 'react';
+import React , { useContext } from 'react';
 import Filter from './Filter';
 import { Grid, Button, Typography, Accordion, AccordionSummary, AccordionDetails} from '@mui/material';
+import FiltersContext from '../contexts/FiltersContext';
 
 const styles = {
     container: {
@@ -25,40 +26,43 @@ const styles = {
 };
 
 const FiltersSection = (props) => {
-    const filterKeys = [{"Energy": "energy_level"}, 
-        {"Affectionate": "affection_level"}, {"Grooming": "grooming"},
-        {"Vocal": "vocalisation"}, {"Child Friendly": "child_friendly"}, 
-        {"Dog Friendly": "dog_friendly"}]
+    const filters = props.filters;
+    const attributeFilters = useContext(FiltersContext);
+    const numFilters = attributeFilters.length;
     return (
         <Grid container justifyContent="center" alignItems="center">
             <Typography sx={styles.typography} variant="h4">Filter Breeds</Typography>
-            <Grid item container direction="row" justifyContent="center" alignItems="center" spacing={1}>
+            <Grid container 
+            justifyContent="center" 
+            alignItems="center" 
+            spacing={1}
+            columns={16}>
                 {
-                    filterKeys.slice(0, 3).map(filter => {
+                    attributeFilters.map(filter => {
                         const key = Object.keys(filter)[0]
                         const value = filter[key]
                         return (
-                            <Grid item key={key}>
-                                <Filter updateFilters={props.updateFilters} stat={key} filter={value} />
+                            <Grid item key={key} md={5} lg={5} xl={5}>
+                                <Filter updateFilters={props.updateFilters} stat={key} filter={value} filters={filters}/>
                             </Grid>
                         )
                     })
                 }
-                <Grid item container direction="row" justifyContent="center" alignItems="center" spacing={1}>
+                {/*<Grid item container direction="row" justifyContent="center" alignItems="center" spacing={1}>
                     {
-                        filterKeys.slice(3).map(filter => {
+                        attributeFilters.slice(3).map(filter => {
                             const key = Object.keys(filter)[0]
                             const value = filter[key]
                             return (
                                 <Grid item key={key}>
-                                    <Filter updateFilters={props.updateFilters} stat={key} filter={value} />
+                                    <Filter updateFilters={props.updateFilters} stat={key} filter={value} filters={filters}/>
                                 </Grid>
                             )
                         })
                     }
-                </Grid>
+                </Grid>*/}
             </Grid>
-            {/*<Button sx={styles.button} color="primary" variant="contained" onClick={props.resetFilters}>Reset Filters</Button>*/}
+            
         </Grid>
     );
 }

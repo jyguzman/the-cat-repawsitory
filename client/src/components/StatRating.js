@@ -6,7 +6,6 @@ const styles = {
     },
 };
 
-
 const StatRating = (props) => {
     return (
         <Grid item container direction="column" justify="center">

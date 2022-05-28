@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
     res.status(200).json({status: 'Success', message: 'Hello, world!'});
 })
 
-app.get('/breeds/cats', async (req, res) => {
+app.get('/breeds/all', async (req, res) => {
     if (req.method !== 'GET') {
         res.status(405).json({status: 'Error', message: '405 Wrong Method'})
     }
@@ -53,6 +53,29 @@ app.get('/breeds/cats', async (req, res) => {
     }).catch(err => {
         res.status(404).send({status:'Error', message:'Error retrieving all breeds.', data: []});
     });
+})
+
+app.get('/breeds', (req, res) => {
+    const filters = req.query;
+    let query = {};
+    for (const filterType in filters) {
+        const values = filters[filterType].map(value => parseInt(value));
+        query[filterType] = { $in: values }
+    }
+    db.find(query ?? {}).toArray()
+    .then(filtered => {
+        res.status(200).json({status: "Success", data: filtered})
+    })
+    .catch(err => console.log(err));
+})
+
+app.get('/breeds/popular', (req, res) => {
+    if (req.method !== 'GET') {
+        res.status(405).json({status: 'Error', message: '405 Wrong Method'})
+    }
+    db.find().sort( { searches : -1} ).limit(10).toArray()
+    .then(topTen => res.status(200).json({status: 'Success', data: topTen}))
+    .catch(err => res.status(404).json({status: 'Error', message: 'Error retrieving top dogs', data: []}))
 })
 
 app.get('/images/:breedId', (req, res) => {
@@ -77,7 +100,7 @@ app.get('/images/:breedId', (req, res) => {
     .catch(err => res.json({status:'error', message:`Error retrieving images for breed with id ${breedId}`, data: []}));
 })
 
-app.put('/update/search-count/:breedId', (req, res) => {
+app.put('/breeds/update/search-count/:breedId', (req, res) => {
     if (req.method !== 'PUT') {
         res.status(405).json({status: 'Error', message: '405 Wrong Method'})
     }
@@ -90,29 +113,6 @@ app.put('/update/search-count/:breedId', (req, res) => {
     }).catch(err => 
         res.status(404).json({status: 'Error', message: 'Resource not found', data: []}
     ));
-})
-
-app.get('/breeds/popular', (req, res) => {
-    if (req.method !== 'GET') {
-        res.status(405).json({status: 'Error', message: '405 Wrong Method'})
-    }
-    db.find().sort( { searches : -1} ).limit(10).toArray()
-    .then(topTen => res.status(200).json({status: 'Success', data: topTen}))
-    .catch(err => res.status(404).json({status: 'Error', message: 'Error retrieving top dogs', data: []}))
-})
-
-app.get('/filters', (req, res) => {
-    const filters = req.query;
-    let query = {};
-    for (const filterType in filters) {
-        const values = filters[filterType].map(value => parseInt(value));
-        query[filterType] = { $in: values }
-    }
-    db.find(query).toArray()
-    .then(filtered => {
-        res.status(200).json({status: "Success", data: filtered})
-    })
-    .catch(err => console.log(err));
 })
 
 app.get('/_ah/warmup', (req, res) => {

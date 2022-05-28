@@ -44,8 +44,8 @@ const CatSearchPage = () => {
 
     useEffect(() => {
         const getFiltered = async () => {
-            const filtered = await axios.get('/filters', {
-                params: (filters ? filters : {})
+            const filtered = await axios.get('/breeds', {
+                params: (filters ?? {})
             })
             setFilteredBreeds(filtered.data.data);
         }

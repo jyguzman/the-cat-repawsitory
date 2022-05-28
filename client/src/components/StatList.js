@@ -13,7 +13,7 @@ const StatList = (props) => {
                 {
                     stats.map((statType, index) => {
                         return (
-                            <StatRating stat={Object.keys(statType)} value={statType[Object.keys(statType)]}  />
+                            <StatRating key={index} stat={Object.keys(statType)} value={statType[Object.keys(statType)]}  />
                         )
                     })
                 }

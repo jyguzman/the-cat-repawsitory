@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, Rating, Stack } from '@mui/material';
+import { Box, Typography, Rating, Stack } from '@mui/material';
 
 const styles = {
     typography: {

@@ -1,11 +1,7 @@
-import { useContext } from 'react';
-import AttributesContext from '../contexts/AttributesContext';
 import StatList from './StatList';
-import getFilterNameFromAttributeName from '../utils/getFilterNameFromAttributeName';
 
 const CatStats = (props) => {
     const cat = props.cat;
-    const attributes = useContext(AttributesContext);
 
     return (
         <StatList key="1" stats={[

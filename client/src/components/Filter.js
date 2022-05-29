@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Typography, IconButton, Button, ButtonGroup, Stack } from '@mui/material';
+import { Typography, IconButton, Button, ButtonGroup, Stack } from '@mui/material';
 
 const Filter = (props) => {  
     const filters = props.filters;

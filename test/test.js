@@ -26,7 +26,7 @@ describe('/GET /breeds/all', () => {
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.data.should.be.a('array');
-                res.body.data.length.should.be.eql(172);
+                res.body.data.length.should.be.eql(67);
                 res.body.status.should.be.eql('Success');
             done();
         })
@@ -35,7 +35,7 @@ describe('/GET /breeds/all', () => {
 
 describe('/GET /images/:breedId', () => {
     it('it should get the images for a particular breed by breed ID, up to 50 images', (done) => {
-        const breedId = 1;
+        const breedId = 'abys';
         chai.request(server)
             .get(`/images/${breedId}`)
             .end((err, res) => {
@@ -43,13 +43,13 @@ describe('/GET /images/:breedId', () => {
                 res.body.status.should.be.eql('Success');
                 res.body.data[0].breeds[0].id.should.be.eql(breedId);
                 res.body.data.should.be.a('array');
-                res.body.data.length.should.be.below(50);
+                res.body.data.length.should.be.below(51);
             done();
         })
     })
 
     it('it should not return any data for an ID that does not exist', (done) => {
-        const breedId = -1;
+        const breedId = 'ksldsldk';
         chai.request(server)
             .get(`/images/${breedId}`)
             .end((err, res) => {
@@ -62,10 +62,10 @@ describe('/GET /images/:breedId', () => {
     })
 })
 
-describe('/GET /topCats', () => {
+describe('/GET /breeds/popular', () => {
     it('it should get the top 10 most searched breeds in descending order', (done) => {
         chai.request(server)
-            .get('/topCats')
+            .get('/breeds/popular')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.data.should.be.a('array');

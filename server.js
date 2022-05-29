@@ -116,10 +116,6 @@ app.put('/breeds/update/search-count/:breedId', (req, res) => {
     ));
 })
 
-app.get('/_ah/warmup', (req, res) => {
-    res.json({status: 'Success'})
-})
-
 app.all('/*', (req, res) => {
     res.status(404).json({status: 'Error', message: 'Resource not found'});
 })

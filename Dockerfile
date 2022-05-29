@@ -10,7 +10,7 @@ COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm install --production
 
-COPY ["server.js", ".env", "./"]
+COPY . .
 
 EXPOSE 3001
 

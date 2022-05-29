@@ -62,10 +62,10 @@ describe('/GET /images/:breedId', () => {
     })
 })
 
-describe('/GET /topDogs', () => {
+describe('/GET /topCats', () => {
     it('it should get the top 10 most searched breeds in descending order', (done) => {
         chai.request(server)
-            .get('/topDogs')
+            .get('/topCats')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.data.should.be.a('array');
@@ -79,11 +79,11 @@ describe('/GET /topDogs', () => {
     })
 })
 
-describe('/PUT /updateSearchCount/:breedId', (done) => {
+describe('/PUT /breeds/update/search-count/:breedId', (done) => {
     it('it should successfully increment the search count by 1 of a given breed by breed ID', (done) => {
         const breedId = 2;
         chai.request(server)
-            .put(`/updateSearchCount/${breedId}`)
+            .put(`/breeds/update/search-count/${breedId}`)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.status.should.be.eql('Success');

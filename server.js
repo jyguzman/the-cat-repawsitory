@@ -13,6 +13,9 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
+const ENV = process.env.NODE_ENV;
+const redisUrl = ENV === "production" ? "redis://redis:6379" : `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
+
 let db = null;
 
 MongoClient.connect(URI, 
@@ -25,9 +28,7 @@ MongoClient.connect(URI,
     db = client.db('cats').collection('breeds');
 });
 
-const redisClient = redis.createClient({
-    //url: `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
-});
+const redisClient = redis.createClient({ url: redisUrl });
 redisClient.connect();
 
 app.get('/', (req, res) => {
@@ -123,6 +124,6 @@ app.all('/*', (req, res) => {
     res.status(404).json({status: 'Error', message: 'Resource not found'});
 })
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT, "0.0.0.0", () => console.log("listening"));
 
 module.exports = app;

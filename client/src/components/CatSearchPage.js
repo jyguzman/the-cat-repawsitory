@@ -9,7 +9,7 @@ import AttributesContext from "../contexts/AttributesContext";
 
 const CatSearchPage = () => {   
     const breeds = useContext(BreedContext).filter(cat => 'image' in cat);;
-    const attributes_ = useContext(AttributesContext);
+    const attributes_ = useContext(AttributesContext).slice(0, 6);
     const [attributeFilters, setAttributeFilters] = useState(attributes_)
     const [filters, setFilters] = useState(null);
     const [filteredBreeds, setFilteredBreeds] = useState(breeds);

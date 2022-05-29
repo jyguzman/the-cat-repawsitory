@@ -2,6 +2,8 @@
 client/node_modules
 /.pnp
 .pnp.js
+.dockerignore
+docker-compose.yaml
 
 # testing
 /coverage

@@ -1,10 +1,6 @@
 import { TextField, Autocomplete } from "@mui/material";
-
-const allAttributes = ["energy_level", "affection_level", "grooming",
-"vocalisation", "child_friendly", "dog_friendly", "health_issues",
-"intelligence", "shedding_level","social_needs",
-"stranger_friendly"
-];
+import { useContext } from "react";
+import AttributesContext from "../contexts/AttributesContext";
 
 const getFilterNameFromAttributeName = (attribute) => {
     const split = attribute.replace(/_/g,' ').split(' ')
@@ -16,6 +12,7 @@ const getFilterNameFromAttributeName = (attribute) => {
 }
 
 const AddFilterSearchBar = (props) => {
+    const allAttributes = useContext(AttributesContext)
     const attributesInUse = props.attributesInUse;
     const options = allAttributes.filter(attribute => !attributesInUse.includes(attribute))
     return (

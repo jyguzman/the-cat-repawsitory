@@ -1,5 +1,6 @@
 import Filter from './Filter';
 import { Grid, Typography } from '@mui/material';
+import getFilterNameFromAttributeName from '../utils/getFilterNameFromAttributeName';
 
 const styles = {
     container: {
@@ -22,12 +23,6 @@ const styles = {
         }
     },
 };
-
-const getFilterNameFromAttributeName = (attribute) => {
-    return attribute.split('_').map(word => 
-    	word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ')
-}
 
 const FiltersSection = (props) => {
     const filters = props.filters;

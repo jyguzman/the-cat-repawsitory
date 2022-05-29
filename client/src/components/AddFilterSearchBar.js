@@ -1,15 +1,7 @@
 import { TextField, Autocomplete } from "@mui/material";
 import { useContext } from "react";
 import AttributesContext from "../contexts/AttributesContext";
-
-const getFilterNameFromAttributeName = (attribute) => {
-    const split = attribute.replace(/_/g,' ').split(' ')
-    let result = ''
-    for (let i = 0; i < split.length; i++) {
-        result += split[i].charAt(0).toUpperCase() + split[i].slice(1) + ' '
-    }
-    return result.trim()
-}
+import getFilterNameFromAttributeName from "../utils/getFilterNameFromAttributeName";
 
 const AddFilterSearchBar = (props) => {
     const allAttributes = useContext(AttributesContext)

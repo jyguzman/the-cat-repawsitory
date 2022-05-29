@@ -1,15 +1,7 @@
 import { useContext } from 'react';
 import AttributesContext from '../contexts/AttributesContext';
 import StatList from './StatList';
-
-const getFilterNameFromAttributeName = (attribute) => {
-    const split = attribute.replace(/_/g,' ').split(' ')
-    let result = ''
-    for (let i = 0; i < split.length; i++) {
-        result += split[i].charAt(0).toUpperCase() + split[i].slice(1) + ' '
-    }
-    return result.trim()
-}
+import getFilterNameFromAttributeName from '../utils/getFilterNameFromAttributeName';
 
 const CatStats = (props) => {
     const cat = props.cat;

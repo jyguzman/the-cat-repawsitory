@@ -120,6 +120,6 @@ app.all('/*', (req, res) => {
     res.status(404).json({status: 'Error', message: 'Resource not found'});
 })
 
-app.listen(process.env.PORT, "0.0.0.0", () => console.log("listening"));
+app.listen(process.env.PORT || 8080, "0.0.0.0", () => console.log("listening"));
 
 module.exports = app;

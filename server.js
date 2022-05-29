@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 const ENV = process.env.NODE_ENV;
-const redisUrl = ENV === "production" ? "redis://redis:6379" : `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}`
+const redisUrl = ENV === "production" ? `redis://default:${process.env.REDIS_PASS}@${process.env.REDIS_HOSTNAME}` : "redis://redis:6379"
 
 let db = null;
 

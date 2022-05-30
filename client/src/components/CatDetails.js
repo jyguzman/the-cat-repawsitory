@@ -33,11 +33,13 @@ const styles = {
 
 const getIdFromName = name => {
     name = name.toLowerCase();
+    if (name === 'pixie-bob')
+        return 'pixi'
     const splitName = name.split(/[- ]/);
     if (splitName.length === 1 || splitName.length === 3)
-        return name.slice(0, 4);
+        return splitName[0].slice(0, 4);
     if (splitName.length === 2)
-        return name.slice(0, 1) + splitName[1].slice(0,3);
+        return splitName[0].slice(0, 1) + splitName[1].slice(0,3);
 }
 
 const updateSearchCountIfTypedInURL = async breedId => {
@@ -51,7 +53,7 @@ const CatDetails = () => {
             updateSearchCountIfTypedInURL(id);
     }, []);
     const name = location.pathname.slice(1);
-    const id = location.state?.id ?? getIdFromName(name); 
+    const id = (location.state ? location.state.id : getIdFromName(name)); 
     const cat = useContext(BreedContext).filter(cat => cat.id === id)[0];
     const images = useFetchBreedImages(id);
 

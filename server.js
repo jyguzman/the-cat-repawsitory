@@ -47,7 +47,7 @@ app.get('/breeds/all', async (req, res) => {
         res.status(200).json({status: 'Success', data: JSON.parse(cats)});
         return;
     }
-    db.find({}).toArray()
+    db.find({}).sort({ name: 1 }).toArray()
     .then(async breeds => {
         await redisClient.set('cats', JSON.stringify(breeds))
         res.status(200).json({status: "Success", data: breeds})
@@ -63,7 +63,7 @@ app.get('/breeds', (req, res) => {
         const values = filters[filterType].map(value => parseInt(value));
         query[filterType] = { $in: values }
     }
-    db.find(query ?? {}).toArray()
+    db.find(query ?? {}).sort({ name: 1 }).toArray()
     .then(filtered => {
         res.status(200).json({status: "Success", data: filtered})
     })

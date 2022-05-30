@@ -11,8 +11,12 @@ const populateCollection = async () => {
         if (err) console.log(err)
         else { 
             const db = client.db('cats').collection('breeds')
-            db.insertMany(breeds);
+            db.updateMany({}, [
+                {"$set": {"_id": "$name".slice(0, 4)}}
+            ]);
         }
     })
     client.close();
 }
+
+populateCollection();

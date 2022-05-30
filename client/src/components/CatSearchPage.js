@@ -6,6 +6,8 @@ import FiltersSection from "./FiltersSection";
 import BreedContext from "../contexts/BreedContext";
 import axios from "axios";
 import AttributesContext from "../contexts/AttributesContext";
+const url = "https://cat-repaws-api-56msqy2ita-uc.a.run.app"
+const ENV = process.env.REACT_APP_NODE_ENV;
 
 const CatSearchPage = () => {   
     const breeds = useContext(BreedContext).filter(cat => 'image' in cat);;
@@ -44,9 +46,11 @@ const CatSearchPage = () => {
 
     useEffect(() => {
         const getFiltered = async () => {
-            const filtered = await axios.get('/breeds', {
-                params: (filters ?? {})
-            })
+            const filtered = await axios.get(
+                `${ENV === 'production' ? url : ''}/breeds`, {
+                    params: (filters ?? {})
+                }
+            )
             setFilteredBreeds(filtered.data.data);
         }
         getFiltered();
